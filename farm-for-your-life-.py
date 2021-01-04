@@ -7,9 +7,13 @@ from pygame import mixer
 from pygame.locals import (
     RLEACCEL,
     K_UP,
+    K_w,
     K_DOWN,
+    K_s,
     K_LEFT,
+    K_a,
     K_RIGHT,
+    K_d,
     K_ESCAPE,
     KEYDOWN,
     QUIT,
@@ -30,13 +34,13 @@ class Cursor(pygame.sprite.Sprite):
 
     # update the sprite based on keypress
     def update(self, pressed_keys):
-        if pressed_keys[K_UP]:
+        if pressed_keys[K_UP] or pressed_keys[K_w]:
             self.rect.move_ip(0, -132)
-        if pressed_keys[K_DOWN]:
+        if pressed_keys[K_DOWN] or pressed_keys[K_s]:
             self.rect.move_ip(0, 132)
-        if pressed_keys[K_LEFT]:
+        if pressed_keys[K_LEFT] or pressed_keys[K_a]:
             self.rect.move_ip(-132, 0)
-        if pressed_keys[K_RIGHT]:
+        if pressed_keys[K_RIGHT] or pressed_keys[K_d]:
             self.rect.move_ip(132, 0)
 
             # Keep player on the screen
