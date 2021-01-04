@@ -14,7 +14,7 @@ from pygame.locals import (
     KEYDOWN,
     QUIT,
 )
-# test
+
 curr_path = os.path.dirname(__file__)  # Where your .py file is located
 assets_path = os.path.join(curr_path, 'assets')  # The assets folder path
 
