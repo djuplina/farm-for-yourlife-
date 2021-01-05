@@ -1,9 +1,7 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 import sys
 import pygame
-import json
-import cmd
 
 
 class UserInterface:
