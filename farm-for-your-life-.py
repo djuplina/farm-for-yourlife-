@@ -102,19 +102,19 @@ while running:
             # update the cursor sprite every keypress
             cursor.update(pressed_keys)
 
-    # blit the background
-    screen.fill((0, 0, 0))
-    screen.blit(bg, (0, 0))
-    screen.blit(bg, (512, 0))
-    screen.blit(bg, (0, 512))
-    screen.blit(bg, (512, 512))
+# blit the background
+screen.fill((0, 0, 0))
+screen.blit(bg, (0, 0))
+screen.blit(bg, (512, 0))
+screen.blit(bg, (0, 512))
+screen.blit(bg, (512, 512))
 
-    # blit the player
-    screen.blit(cursor.surf, cursor.rect)
+# blit the player
+screen.blit(cursor.surf, cursor.rect)
 
-    pygame.display.flip()
+pygame.display.flip()
 
-    clock.tick(60)
+clock.tick(60)
 
 pygame.quit()
 sys.exit()
