@@ -33,6 +33,7 @@ curr_path = os.path.dirname(__file__)  # Where your .py file is located
 assets_path = os.path.join(curr_path, 'assets')  # The assets folder path
 grass_path = os.path.join(assets_path, 'background', 'grass')
 
+
 grass_img = pygame.image.load(os.path.join(f"{grass_path}", "grass.png")).convert_alpha()
 #grass_img.set_colorkey((0, 0, 0))
 
@@ -46,7 +47,7 @@ while True:
         for x, tile in enumerate(row):
             if tile:
                 #pygame.draw.rect(display, (255, 255, 255), pygame.Rect(x * 10, y * 10, 10, 10), 1)
-                display.blit(grass_img, (150 + x * 8 - y * 8, 100 + x * 5 + y * 5))
+                display.blit(grass_img, (150 + x * 7 - y * 7, 100 + x * 4 + y * 4))
 
     for event in pygame.event.get():
         if event.type == QUIT:
