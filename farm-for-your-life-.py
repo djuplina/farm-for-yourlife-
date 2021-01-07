@@ -55,7 +55,10 @@ class Cursor(pygame.sprite.Sprite):
         if self.rect.bottom >= SCREEN_HEIGHT:
             self.rect.bottom = SCREEN_HEIGHT
 
+#
+
 # TILL THE SOIL
+#def tilling()
 
 # PLANT THE SEEDS
 
@@ -89,12 +92,11 @@ cursor = Cursor()
 SCREEN_UPDATE = pygame.USEREVENT
 pygame.time.set_timer(SCREEN_UPDATE, 80)
 
-running = True
-while running:
+while True:
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
+            RUNNING = False
             pygame.quit()
             sys.exit()
         if event.type == SCREEN_UPDATE:
