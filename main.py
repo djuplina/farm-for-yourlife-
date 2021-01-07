@@ -6,6 +6,7 @@ import time
 import random
 import math
 import os
+import random_map
 from pygame import mixer
 from pygame.locals import (
     RLEACCEL,
@@ -41,7 +42,6 @@ f.close()
 
 while True:
     display.fill((0,0,0))
-
     for y, row in enumerate(map_data):
         for x, tile in enumerate(row):
             if tile:
