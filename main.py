@@ -54,11 +54,11 @@ while True:
             if tile:
                 if tile == 1:
                     #pygame.draw.rect(display, (255, 255, 255), pygame.Rect(x * 10, y * 10, 10, 10), 1)
-                    display.blit(grass_img, (150 + x * 7 - y * 7, 100 + x * 4 + y * 4))
+                    display.blit(grass_img, (150 + x * 8 - y * 8, 100 + x * 4 + y * 4))
                 if tile == 2:
-                    display.blit(dirt_img, (150 + x * 7 - y * 7, 100 + x * 4 + y * 4))
+                    display.blit(dirt_img, (150 + x * 8 - y * 8, 100 + x * 4 + y * 4))
                 if tile == 3:
-                    display.blit(seed_img, (150 + x * 7 - y * 7, 100 + x * 4 + y * 4))
+                    display.blit(seed_img, (150 + x * 8 - y * 8, 100 + x * 4 + y * 4))
 
     for event in pygame.event.get():
         if event.type == QUIT:
