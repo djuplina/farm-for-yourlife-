@@ -10,12 +10,18 @@ def main():
     #reset map data
     open(f"{map_path}", 'w').close()
     #set map index
-    index = 15
+    index = 18
     #loop and generate a map
 
 
     while index > 0:
         f = open(f"{map_path}", "a")
+        f.write(str(random.randint(0,3)))
+        f.write(str(random.randint(0,3)))
+        f.write(str(random.randint(0,3)))
+        f.write(str(random.randint(0,3)))
+        f.write(str(random.randint(0,3)))
+        f.write(str(random.randint(0,3)))
         f.write(str(random.randint(0,3)))
         f.write(str(random.randint(0,3)))
         f.write(str(random.randint(0,3)))
