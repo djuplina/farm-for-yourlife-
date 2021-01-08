@@ -46,13 +46,14 @@ seed_img = pygame.image.load(os.path.join(f"{seed_path}", "dark-seed.png")).conv
 #grass_rect = pygame.transform.rotozoom((grass_surf), 1, 2)
 #grass_img.set_colorkey((0, 0, 0))
 
+random_map.main()
 #f = open('map.txt')
 f = open('map-test.txt')
 map_data = [[int(c) for c in row] for row in f.read().split('\n')]
 f.close()
 
 while True:
-    display.fill((0,0,0))
+    display.fill((100,100,255))
     for y, row in enumerate(map_data):
         for x, tile in enumerate(row):
             if tile:
