@@ -6,7 +6,6 @@ import time
 import random
 import math
 import os
-import random_map
 from pygame import mixer
 from pygame.locals import (
     RLEACCEL,
@@ -23,6 +22,9 @@ from pygame.locals import (
     QUIT,
 )
 
+#local imports
+import random_map
+
 from pygame.locals import *
 pygame.init()
 pygame.display.set_caption('Farm for Your Life!')
@@ -34,6 +36,8 @@ assets_path = os.path.join(curr_path, 'assets')  # The assets folder path
 grass_path = os.path.join(assets_path, 'background', 'grass')
 dirt_path = os.path.join(assets_path, 'background', 'dirt')
 seed_path = os.path.join(assets_path, 'background', 'seed')
+icon = pygame.image.load(os.path.join(f"{assets_path}", "icon.png"))
+pygame.display.set_icon(icon)
 
 grass_img = pygame.image.load(os.path.join(f"{grass_path}", "dark-grass.png")).convert_alpha()
 dirt_img = pygame.image.load(os.path.join(f"{dirt_path}", "dark-dirt.png")).convert_alpha()
