@@ -25,11 +25,22 @@ from pygame.locals import (
 #local imports
 import random_map
 
+# classes
+
+class Cursor(pygame.sprite.Sprite):
+    def __init__(self):
+        cursorimage = pygame.image.load(os.path.join(f"{assets_path}", "cursor.png"))
+        super(Cursor, self).__init__()
+        self.surf = cursorimage.convert()
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+        self.rect = self.surf.get_rect(center=(158,110))
+
 from pygame.locals import *
 pygame.init()
 pygame.display.set_caption('Farm for Your Life!')
 screen = pygame.display.set_mode((900, 900),0,32)
 display = pygame.Surface((300, 300))
+clock = pygame.time.Clock()
 
 curr_path = os.path.dirname(__file__)  # Where your .py file is located
 assets_path = os.path.join(curr_path, 'assets')  # The assets folder path
@@ -42,9 +53,6 @@ pygame.display.set_icon(icon)
 grass_img = pygame.image.load(os.path.join(f"{grass_path}", "dark-grass.png")).convert_alpha()
 dirt_img = pygame.image.load(os.path.join(f"{dirt_path}", "dark-dirt.png")).convert_alpha()
 seed_img = pygame.image.load(os.path.join(f"{seed_path}", "dark-seed.png")).convert_alpha()
-#grass_surf = grass_img
-#grass_rect = pygame.transform.rotozoom((grass_surf), 1, 2)
-#grass_img.set_colorkey((0, 0, 0))
 
 random_map.main()
 #f = open('map.txt')
@@ -52,8 +60,16 @@ f = open('map-test.txt')
 map_data = [[int(c) for c in row] for row in f.read().split('\n')]
 f.close()
 
+cursor = Cursor()
+
+# SCREEN_UPDATE = pygame.USEREVENT
+# pygame.time.set_timer(SCREEN_UPDATE, 180)
+
 while True:
-    display.fill((100,100,255))
+    
+    #display.fill((100,100,255))
+    display.fill((0,0,0))
+
     for y, row in enumerate(map_data):
         for x, tile in enumerate(row):
             if tile:
@@ -73,7 +89,25 @@ while True:
             if event.key == K_ESCAPE:
                 pygame.quit()
                 sys.exit()
+            if event.key == K_LEFT:
+                cursor.rect.move_ip(-8, -4)
+            if event.key == K_RIGHT:
+                cursor.rect.move_ip(8, 4)
+            if event.key == K_DOWN:
+                cursor.rect.move_ip(-8, 4)
+            if event.key == K_UP:
+                cursor.rect.move_ip(8, -4)
+            if event.key == K_a:
+                cursor.rect.move_ip(-8, -4)
+            if event.key == K_d:
+                cursor.rect.move_ip(8, 4)
+            if event.key == K_s:
+                cursor.rect.move_ip(-8, 4)
+            if event.key == K_w:
+                cursor.rect.move_ip(8, -4)
+
+    display.blit(cursor.surf, cursor.rect)
 
     screen.blit(pygame.transform.scale(display, screen.get_size()), (0, 0))
     pygame.display.update()
-    time.sleep(1)
+    clock.tick(60)
