@@ -33,7 +33,7 @@ class Cursor(pygame.sprite.Sprite):
         super(Cursor, self).__init__()
         self.surf = cursorimage.convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
-        self.rect = self.surf.get_rect(center=(158,110))
+        self.rect = self.surf.get_rect(center=(166,120))
 
 from pygame.locals import *
 pygame.init()
@@ -42,8 +42,8 @@ screen = pygame.display.set_mode((900, 900),0,32)
 display = pygame.Surface((300, 300))
 clock = pygame.time.Clock()
 pygame.mixer.pre_init(frequency = 44100, size = -16, channels = 1, buffer = 512)
-x_offset = 8
-y_offset = 4
+x_offset = 16
+y_offset = 8
 
 joysticks = []
 
