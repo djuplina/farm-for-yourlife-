@@ -44,6 +44,7 @@ clock = pygame.time.Clock()
 
 curr_path = os.path.dirname(__file__)  # Where your .py file is located
 assets_path = os.path.join(curr_path, 'assets')  # The assets folder path
+map_path = os.path.join(f"{assets_path}", 'map.txt')
 grass_path = os.path.join(assets_path, 'background', 'grass')
 dirt_path = os.path.join(assets_path, 'background', 'dirt')
 seed_path = os.path.join(assets_path, 'background', 'seed')
@@ -55,8 +56,7 @@ dirt_img = pygame.image.load(os.path.join(f"{dirt_path}", "dark-dirt.png")).conv
 seed_img = pygame.image.load(os.path.join(f"{seed_path}", "dark-seed.png")).convert_alpha()
 
 random_map.main()
-#f = open('map.txt')
-f = open('map-test.txt')
+f =  open(f"{map_path}")
 map_data = [[int(c) for c in row] for row in f.read().split('\n')]
 f.close()
 
