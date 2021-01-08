@@ -45,8 +45,8 @@ pygame.mixer.pre_init(frequency = 44100, size = -16, channels = 1, buffer = 512)
 x_offset = 8
 y_offset = 4
 
-curr_path = os.path.dirname(__file__)  # Where your .py file is located
-assets_path = os.path.join(curr_path, 'assets')  # The assets folder path
+curr_path = os.path.dirname(__file__)
+assets_path = os.path.join(curr_path, 'assets')
 map_path = os.path.join(f"{assets_path}", 'map.txt')
 grass_path = os.path.join(assets_path, 'background', 'grass')
 dirt_path = os.path.join(assets_path, 'background', 'dirt')
@@ -55,7 +55,7 @@ bgm_path = os.path.join(assets_path, 'audio', 'bgm')
 icon = pygame.image.load(os.path.join(f"{assets_path}", "icon.png"))
 pygame.display.set_icon(icon)
 
-grass_img = pygame.image.load(os.path.join(f"{grass_path}", "dark-grass.png")).convert_alpha()
+grss_img = pygame.image.load(os.path.join(f"{grass_path}", "dark-grass.png")).convert_alpha()
 dirt_img = pygame.image.load(os.path.join(f"{dirt_path}", "dark-dirt.png")).convert_alpha()
 seed_img = pygame.image.load(os.path.join(f"{seed_path}", "dark-seed.png")).convert_alpha()
 bgm = soundObj = pygame.mixer.Sound(os.path.join(f"{bgm_path}", 'evening.wav'))
@@ -67,12 +67,7 @@ f.close()
 
 cursor = Cursor()
 
-# SCREEN_UPDATE = pygame.USEREVENT
-# pygame.time.set_timer(SCREEN_UPDATE, 180)
-
 while True:
-    
-    #display.fill((100,100,255))
     display.fill((0,0,0))
     
     # play bgm during the loop
@@ -82,10 +77,9 @@ while True:
         for x, tile in enumerate(row):
             if tile:
                 if tile == 1:
-                    #pygame.draw.rect(display, (255, 255, 255), pygame.Rect(x * 10, y * 10, 10, 10), 1)
-                    display.blit(grass_img, (150 + x * x_offset - y * x_offset, 100 + x * y_offset + y * y_offset))
+                    display.blit(grss_img, (150 + x * x_offset - y * x_offset, 100 + x * y_offset + y * y_offset))
                 if tile == 2:
-                    display.blit(dirt_img, (150 + x * x_offset- y * x_offset, 100 + x * y_offset + y * y_offset))
+                    display.blit(dirt_img, (150 + x * x_offset - y * x_offset, 100 + x * y_offset + y * y_offset))
                 if tile == 3:
                     display.blit(seed_img, (150 + x * x_offset - y * x_offset, 100 + x * y_offset + y * y_offset))
 

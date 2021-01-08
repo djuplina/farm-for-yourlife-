@@ -1,8 +1,8 @@
 import random
 import os
 
-curr_path = os.path.dirname(__file__)  # Where your .py file is located
-assets_path = os.path.join(curr_path, "assets")  # The assets folder path
+curr_path = os.path.dirname(__file__)
+assets_path = os.path.join(curr_path, "assets")
 map_path = os.path.join(f"{assets_path}", "map.txt")
 
 def main():
