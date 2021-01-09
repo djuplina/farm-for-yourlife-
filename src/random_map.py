@@ -16,14 +16,14 @@ def main():
 
     while index > 0:
         f = open(f"{map_path}", "a")
-        f.write(str(random.randint(1,3)))
-        f.write(str(random.randint(1,3)))
-        f.write(str(random.randint(1,3)))
-        f.write(str(random.randint(1,3)))
-        f.write(str(random.randint(1,3)))
-        f.write(str(random.randint(1,3)))
-        f.write(str(random.randint(1,3)))
-        f.write(str(random.randint(1,3)))
+        f.write(str(random.randint(1,2)))
+        f.write(str(random.randint(1,2)))
+        f.write(str(random.randint(1,2)))
+        f.write(str(random.randint(1,2)))
+        f.write(str(random.randint(1,2)))
+        f.write(str(random.randint(1,2)))
+        f.write(str(random.randint(1,2)))
+        f.write(str(random.randint(1,2)))
         index -= 1
         f.write('\n')
 

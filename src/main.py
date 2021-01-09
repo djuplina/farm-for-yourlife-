@@ -60,12 +60,14 @@ pygame.display.set_icon(icon)
 grss_img = pygame.image.load(os.path.join(f"{grass_path}", "grass.png")).convert_alpha()
 dirt_img = pygame.image.load(os.path.join(f"{dirt_path}", "dirt.png")).convert_alpha()
 seed_img = pygame.image.load(os.path.join(f"{seed_path}", "seed.png")).convert_alpha()
-bgm = soundObj = pygame.mixer.Sound(os.path.join(f"{bgm_path}", 'evening.wav'))
+bgm = pygame.mixer.Sound(os.path.join(f"{bgm_path}", 'evening.wav'))
 
 random_map.main()
 f =  open(f"{map_path}")
 map_data = [[int(c) for c in row] for row in f.read().split('\n')]
 f.close()
+
+map_tiles = []
 
 cursor = Cursor()
 
@@ -77,17 +79,19 @@ while True:
     display.fill((0,0,0))
     
     # play bgm during the loop
-    #bgm.play()
+    bgm.play()
 
+    
     for y, row in enumerate(map_data):
         for x, tile in enumerate(row):
             if tile:
+                location_var = (150 + x * x_offset - y * x_offset, 100 + x * y_offset + y * y_offset)
                 if tile == 1:
-                    display.blit(grss_img, (150 + x * x_offset - y * x_offset, 100 + x * y_offset + y * y_offset))
+                    display.blit(grss_img, location_var)
+                    map_tiles.append(location_var)
                 if tile == 2:
-                    display.blit(dirt_img, (150 + x * x_offset - y * x_offset, 100 + x * y_offset + y * y_offset))
-                if tile == 3:
-                    display.blit(seed_img, (150 + x * x_offset - y * x_offset, 100 + x * y_offset + y * y_offset))
+                    display.blit(dirt_img, location_var)
+                    map_tiles.append(location_var)
 
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -95,16 +99,38 @@ while True:
             sys.exit()
         if event.type == KEYDOWN:
             if event.key == K_ESCAPE:
+                print(map_tiles)
                 pygame.quit()
                 sys.exit()
             if event.key == K_LEFT or event.key == K_a:
-                cursor.rect.move_ip(-x_offset, -y_offset)
+                if (cursor.rect.left -x_offset, cursor.rect.top -y_offset) not in map_tiles:
+                    pass
+                else:
+                    cursor.rect.move_ip(-x_offset, -y_offset)
             if event.key == K_RIGHT or event.key == K_d:
-                cursor.rect.move_ip(x_offset, y_offset)
+                if (cursor.rect.left + x_offset, cursor.rect.top + y_offset) not in map_tiles:
+                    pass
+                else:
+                    cursor.rect.move_ip(x_offset, y_offset)
             if event.key == K_DOWN or event.key == K_s:
-                cursor.rect.move_ip(-x_offset, y_offset)
+                if (cursor.rect.left -x_offset, cursor.rect.top + y_offset) not in map_tiles:
+                    pass
+                else:
+                    cursor.rect.move_ip(-x_offset, y_offset)
             if event.key == K_UP or event.key == K_w:
-                cursor.rect.move_ip(x_offset, -y_offset)
+                if (cursor.rect.left + x_offset, cursor.rect.top -y_offset) not in map_tiles:
+                    pass
+                else:
+                    cursor.rect.move_ip(x_offset, -y_offset)
+
+        # keep the player on the screen
+        # so i have to move the left-most point that a tile gan go based on it's row, which probably means i need some kind of xy table
+        # this probably needs to be above the key event loop
+        
+        # if (cursor.rect.centerx
+        #     cursor.rect.move_ip(-x_offset, -y_offset)
+
+
         # if event.type == JOYHATMOTION:
         #     if joysticks[0].get_hat(0) == (-1,0): #left
         #         cursor.rect.move_ip(-x_offset, -y_offset)
