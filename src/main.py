@@ -137,10 +137,8 @@ while True:
                 else:
                     cursor.rect.move_ip(x_offset, -y_offset)
             if event.key == K_SPACE:
-                #print(cursor.rect.topleft)
                 # update map_data here
                 map_tile[(map_pos.index(cursor.rect.topleft))] = 3
-                #print('space')
 
         # if (cursor.rect.centerx
         #     cursor.rect.move_ip(-x_offset, -y_offset)
