@@ -37,9 +37,8 @@ class Cursor(pygame.sprite.Sprite):
         self.rect = self.surf.get_rect(center=(166,120))
 
 def read_map():
-    f =  open(f"{map_path}")
-    map_data = [[int(c) for c in row] for row in f.read().split('\n')]
-    f.close()
+    load_map = str(random_map.main())
+    map_data = [[int(c) for c in row] for row in load_map.split('\n')]
     map_pos = []
     map_tile = []
 
@@ -66,7 +65,6 @@ joysticks = []
 
 curr_path = os.path.dirname(__file__)
 assets_path = os.path.join(curr_path, 'assets')
-map_path = os.path.join(f"{assets_path}", 'map.txt')
 grass_path = os.path.join(assets_path, 'background', 'grass')
 dirt_path = os.path.join(assets_path, 'background', 'dirt')
 seed_path = os.path.join(assets_path, 'background', 'seed')
