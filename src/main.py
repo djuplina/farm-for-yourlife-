@@ -18,6 +18,7 @@ from pygame.locals import (
     K_RIGHT,
     K_d,
     K_ESCAPE,
+    K_SPACE,
     KEYDOWN,
     QUIT,
 )
@@ -34,6 +35,22 @@ class Cursor(pygame.sprite.Sprite):
         self.surf = cursorimage.convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(center=(166,120))
+
+def read_map():
+    f =  open(f"{map_path}")
+    map_data = [[int(c) for c in row] for row in f.read().split('\n')]
+    f.close()
+    map_pos = []
+    map_tile = []
+
+    for y, row in enumerate(map_data):
+        for x, tile in enumerate(row):
+            if tile:
+                location_var = (150 + x * x_offset - y * x_offset, 100 + x * y_offset + y * y_offset)
+                if tile:
+                    map_pos.append(location_var)
+                    map_tile.append(tile)
+    return map_tile, map_pos
 
 from pygame.locals import *
 pygame.init()
@@ -62,12 +79,12 @@ dirt_img = pygame.image.load(os.path.join(f"{dirt_path}", "dirt.png")).convert_a
 seed_img = pygame.image.load(os.path.join(f"{seed_path}", "seed.png")).convert_alpha()
 bgm = pygame.mixer.Sound(os.path.join(f"{bgm_path}", 'evening.wav'))
 
+# set up the  map
 random_map.main()
-f =  open(f"{map_path}")
-map_data = [[int(c) for c in row] for row in f.read().split('\n')]
-f.close()
-
-map_tiles = []
+map_returns = read_map()
+map_pos = map_returns[1]
+map_tile = map_returns[0]
+tile_count = (len(map_tile) - 80)
 
 cursor = Cursor()
 
@@ -81,17 +98,16 @@ while True:
     # play bgm during the loop
     bgm.play()
 
-    
-    for y, row in enumerate(map_data):
-        for x, tile in enumerate(row):
-            if tile:
-                location_var = (150 + x * x_offset - y * x_offset, 100 + x * y_offset + y * y_offset)
-                if tile == 1:
-                    display.blit(grss_img, location_var)
-                    map_tiles.append(location_var)
-                if tile == 2:
-                    display.blit(dirt_img, location_var)
-                    map_tiles.append(location_var)
+    # actually print the map
+    tile_count = (len(map_tile) - 80)
+    while tile_count < 80:
+        if int(map_tile[tile_count]) == 1:
+            display.blit(grss_img, map_pos[tile_count])
+        if int(map_tile[tile_count]) == 2:
+            display.blit(dirt_img, map_pos[tile_count])
+        if int(map_tile[tile_count]) == 3:
+            display.blit(seed_img, map_pos[tile_count])
+        tile_count += 1
 
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -99,34 +115,35 @@ while True:
             sys.exit()
         if event.type == KEYDOWN:
             if event.key == K_ESCAPE:
-                print(map_tiles)
+                print(map_pos)
                 pygame.quit()
                 sys.exit()
             if event.key == K_LEFT or event.key == K_a:
-                if (cursor.rect.left -x_offset, cursor.rect.top -y_offset) not in map_tiles:
+                if (cursor.rect.left -x_offset, cursor.rect.top -y_offset) not in map_pos:
                     pass
                 else:
                     cursor.rect.move_ip(-x_offset, -y_offset)
             if event.key == K_RIGHT or event.key == K_d:
-                if (cursor.rect.left + x_offset, cursor.rect.top + y_offset) not in map_tiles:
+                if (cursor.rect.left + x_offset, cursor.rect.top + y_offset) not in map_pos:
                     pass
                 else:
                     cursor.rect.move_ip(x_offset, y_offset)
             if event.key == K_DOWN or event.key == K_s:
-                if (cursor.rect.left -x_offset, cursor.rect.top + y_offset) not in map_tiles:
+                if (cursor.rect.left -x_offset, cursor.rect.top + y_offset) not in map_pos:
                     pass
                 else:
                     cursor.rect.move_ip(-x_offset, y_offset)
             if event.key == K_UP or event.key == K_w:
-                if (cursor.rect.left + x_offset, cursor.rect.top -y_offset) not in map_tiles:
+                if (cursor.rect.left + x_offset, cursor.rect.top -y_offset) not in map_pos:
                     pass
                 else:
                     cursor.rect.move_ip(x_offset, -y_offset)
+            if event.key == K_SPACE:
+                #print(cursor.rect.topleft)
+                # update map_data here
+                map_tile[(map_pos.index(cursor.rect.topleft))] = 3
+                #print('space')
 
-        # keep the player on the screen
-        # so i have to move the left-most point that a tile gan go based on it's row, which probably means i need some kind of xy table
-        # this probably needs to be above the key event loop
-        
         # if (cursor.rect.centerx
         #     cursor.rect.move_ip(-x_offset, -y_offset)
 
