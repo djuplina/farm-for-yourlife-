@@ -7,21 +7,7 @@ import random
 import math
 import os
 from pygame import mixer
-from pygame.locals import (
-    RLEACCEL,
-    K_UP,
-    K_w,
-    K_DOWN,
-    K_s,
-    K_LEFT,
-    K_a,
-    K_RIGHT,
-    K_d,
-    K_ESCAPE,
-    K_SPACE,
-    KEYDOWN,
-    QUIT,
-)
+from pygame.locals import (RLEACCEL, K_UP, K_w, K_DOWN, K_s, K_LEFT, K_a, K_RIGHT, K_d, K_ESCAPE, K_SPACE, KEYDOWN, QUIT,)
 
 #local imports
 import random_map
