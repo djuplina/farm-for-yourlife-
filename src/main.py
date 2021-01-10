@@ -56,6 +56,8 @@ dirt_path = os.path.join(assets_path, 'background', 'dirt')
 seed_path = os.path.join(assets_path, 'background', 'seed')
 bgm_path = os.path.join(assets_path, 'audio', 'bgm')
 icon = pygame.image.load(os.path.join(f"{assets_path}", "icon.png"))
+inv = pygame.image.load(os.path.join(f"{assets_path}", "inv.png")).convert()
+inv.get_rect(center = (48, 16))
 pygame.display.set_icon(icon)
 
 grss_img = pygame.image.load(os.path.join(f"{grass_path}", "grass.png")).convert_alpha()
@@ -66,8 +68,8 @@ bgm = pygame.mixer.Sound(os.path.join(f"{bgm_path}", 'evening.wav'))
 # set up the  map
 random_map.main()
 map_returns = read_map()
-map_pos = map_returns[1]
 map_tile = map_returns[0]
+map_pos = map_returns[1]
 tile_count = (len(map_tile) - 80)
 
 cursor = Cursor()
@@ -78,6 +80,9 @@ for i in range(pygame.joystick.get_count()):
 
 while True:
     display.fill((0,0,0))
+
+    # inventory
+    display.blit(inv, [102, 10])
     
     # play bgm during the loop
     bgm.play()
