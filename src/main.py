@@ -21,6 +21,29 @@ class Cursor(pygame.sprite.Sprite):
         self.surf = cursorimage.convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(center=(166,120))
+        self.particles = []
+
+    def emit(self):
+        if self.particles:
+            self.delete_particles()
+            for particle in self.particles:
+                particle[0][1] += particle[2][0]
+                particle[0][0] += particle[2][1]
+                particle[1] -= 0.2
+                pygame.draw.circle(display, pygame.Color(13,183,109), particle[0], int(particle[1]))
+
+    def add_particles(self):
+        pos_x = self.rect.center[0]
+        pos_y = self.rect.center[1] - y_offset - 5
+        radius = 2
+        direction_y = random.randint(-3, 3)
+        direction_x = random.randint(-3, 3)
+        particle_circle = [[pos_x, pos_y], radius, [direction_x, direction_y]]
+        self.particles.append(particle_circle)
+
+    def delete_particles(self):
+        particle_copy = [particle for particle in self.particles if particle[1] > 0]
+        self.particles = particle_copy
 
 def read_map():
     load_map = str(random_map.main())
@@ -103,8 +126,7 @@ while True:
             pygame.quit()
             sys.exit()
         if event.type == KEYDOWN:
-            if event.key == K_ESCAPE:
-                print(map_pos)
+            if event.key == K_ESCAPE: 
                 pygame.quit()
                 sys.exit()
             if event.key == K_LEFT or event.key == K_a:
@@ -130,6 +152,9 @@ while True:
             if event.key == K_SPACE:
                 # update map_data here
                 map_tile[(map_pos.index(cursor.rect.topleft))] = 3
+                cursor.add_particles()
+                cursor.add_particles()
+                cursor.add_particles()
 
         # if (cursor.rect.centerx
         #     cursor.rect.move_ip(-x_offset, -y_offset)
@@ -149,9 +174,10 @@ while True:
         #     cursor.rect.move(mouse_position[0], mouse_position[1])
 
     display.blit(cursor.surf, cursor.rect)
+    cursor.emit()
 
     screen.blit(pygame.transform.scale(display, screen.get_size()), (0, 0))
     pygame.display.update()
-    clock.tick(60)
+    clock.tick(40)
 
 pygame.joystick.quit()
