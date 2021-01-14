@@ -23,6 +23,7 @@ def main():
         i1 -= 1
         seed += "\n"
     return seed
+
         # f = open(f"{map_path}", "a")
         # f.write(str(random.randint(1,2)))
         # f.write(str(random.randint(1,2)))

@@ -7,7 +7,7 @@ import random
 import math
 import os
 from pygame import mixer
-from pygame.locals import (RLEACCEL, K_UP, K_w, K_DOWN, K_s, K_LEFT, K_a, K_RIGHT, K_d, K_ESCAPE, K_SPACE, KEYDOWN, QUIT,)
+from pygame.locals import (RLEACCEL, K_UP, K_e, K_DOWN, K_s, K_LEFT, K_f, K_RIGHT, K_d, K_ESCAPE, K_SPACE, KEYDOWN, QUIT,)
 
 #local imports
 import random_map
@@ -26,18 +26,19 @@ class Cursor(pygame.sprite.Sprite):
     def emit(self):
         if self.particles:
             self.delete_particles()
+            part_color = pygame.Color(13,183,109)
             for particle in self.particles:
                 particle[0][1] += particle[2][0]
                 particle[0][0] += particle[2][1]
                 particle[1] -= 0.2
-                pygame.draw.circle(display, pygame.Color(13,183,109), particle[0], int(particle[1]))
+                pygame.draw.circle(display, part_color, particle[0], int(particle[1]))
 
     def add_particles(self):
-        pos_x = self.rect.center[0]
-        pos_y = self.rect.center[1] - y_offset - 5
+        pos_x = self.rect.center[0] + random.randint(-6, 6)
+        pos_y = self.rect.center[1] - y_offset - random.randint(-3,3)
         radius = 2
-        direction_y = random.randint(-3, 3)
-        direction_x = random.randint(-3, 3)
+        direction_y = 0 #random.randint(-3, 3)
+        direction_x = random.randint(-3, 0)
         particle_circle = [[pos_x, pos_y], radius, [direction_x, direction_y]]
         self.particles.append(particle_circle)
 
@@ -129,32 +130,44 @@ while True:
             if event.key == K_ESCAPE: 
                 pygame.quit()
                 sys.exit()
-            if event.key == K_LEFT or event.key == K_a:
+            if event.key == K_LEFT or event.key == K_s:
                 if (cursor.rect.left -x_offset, cursor.rect.top -y_offset) not in map_pos:
                     pass
                 else:
                     cursor.rect.move_ip(-x_offset, -y_offset)
-            if event.key == K_RIGHT or event.key == K_d:
+            if event.key == K_RIGHT or event.key == K_f:
                 if (cursor.rect.left + x_offset, cursor.rect.top + y_offset) not in map_pos:
                     pass
                 else:
                     cursor.rect.move_ip(x_offset, y_offset)
-            if event.key == K_DOWN or event.key == K_s:
+            if event.key == K_DOWN or event.key == K_d:
                 if (cursor.rect.left -x_offset, cursor.rect.top + y_offset) not in map_pos:
                     pass
                 else:
                     cursor.rect.move_ip(-x_offset, y_offset)
-            if event.key == K_UP or event.key == K_w:
+            if event.key == K_UP or event.key == K_e:
                 if (cursor.rect.left + x_offset, cursor.rect.top -y_offset) not in map_pos:
                     pass
                 else:
                     cursor.rect.move_ip(x_offset, -y_offset)
             if event.key == K_SPACE:
                 # update map_data here
-                map_tile[(map_pos.index(cursor.rect.topleft))] = 3
-                cursor.add_particles()
-                cursor.add_particles()
-                cursor.add_particles()
+                if map_tile[(map_pos.index(cursor.rect.topleft))] == 1:
+                    cursor.add_particles()
+                    cursor.add_particles()
+                    cursor.add_particles()
+                    cursor.add_particles()
+                    cursor.add_particles()
+                    cursor.add_particles()
+                    map_tile[(map_pos.index(cursor.rect.topleft))] = 3
+                if map_tile[(map_pos.index(cursor.rect.topleft))] == 2:
+                    cursor.add_particles()
+                    cursor.add_particles()
+                    cursor.add_particles()
+                    cursor.add_particles()
+                    cursor.add_particles()
+                    cursor.add_particles()
+                    map_tile[(map_pos.index(cursor.rect.topleft))] = 3
 
         # if (cursor.rect.centerx
         #     cursor.rect.move_ip(-x_offset, -y_offset)
