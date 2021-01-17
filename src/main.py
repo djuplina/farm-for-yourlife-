@@ -153,9 +153,7 @@ clock = pygame.time.Clock()
 pygame.mixer.pre_init(frequency = 44100, size = -16, channels = 1, buffer = 512)
 x_offset = 16
 y_offset = 8
-
 joysticks = []
-
 curr_path = os.path.dirname(__file__)
 assets_path = os.path.join(curr_path, 'assets')
 grass_path = os.path.join(assets_path, 'background', 'grass')
