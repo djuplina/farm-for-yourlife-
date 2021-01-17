@@ -61,6 +61,82 @@ def read_map():
                     map_tile.append(tile)
     return map_tile, map_pos
 
+def print_map():
+    tile_count = (len(map_tile) - 80)
+    while tile_count < 80:
+        if int(map_tile[tile_count]) == 1:
+            display.blit(grss_img, map_pos[tile_count])
+        if int(map_tile[tile_count]) == 2:
+            display.blit(dirt_img, map_pos[tile_count])
+        if int(map_tile[tile_count]) == 3:
+            display.blit(seed_img, map_pos[tile_count])
+        tile_count += 1
+
+def check_inputs():
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            pygame.quit()
+            sys.exit()
+        if event.type == KEYDOWN:
+            if event.key == K_ESCAPE: 
+                pygame.quit()
+                sys.exit()
+            if event.key == K_LEFT or event.key == K_s:
+                if (cursor.rect.left -x_offset, cursor.rect.top -y_offset) not in map_pos:
+                    pass
+                else:
+                    cursor.rect.move_ip(-x_offset, -y_offset)
+            if event.key == K_RIGHT or event.key == K_f:
+                if (cursor.rect.left + x_offset, cursor.rect.top + y_offset) not in map_pos:
+                    pass
+                else:
+                    cursor.rect.move_ip(x_offset, y_offset)
+            if event.key == K_DOWN or event.key == K_d:
+                if (cursor.rect.left -x_offset, cursor.rect.top + y_offset) not in map_pos:
+                    pass
+                else:
+                    cursor.rect.move_ip(-x_offset, y_offset)
+            if event.key == K_UP or event.key == K_e:
+                if (cursor.rect.left + x_offset, cursor.rect.top -y_offset) not in map_pos:
+                    pass
+                else:
+                    cursor.rect.move_ip(x_offset, -y_offset)
+            if event.key == K_SPACE:
+                # update map_data here
+                if map_tile[(map_pos.index(cursor.rect.topleft))] == 1:
+                    cursor.add_particles()
+                    cursor.add_particles()
+                    cursor.add_particles()
+                    cursor.add_particles()
+                    cursor.add_particles()
+                    cursor.add_particles()
+                    map_tile[(map_pos.index(cursor.rect.topleft))] = 3
+                if map_tile[(map_pos.index(cursor.rect.topleft))] == 2:
+                    cursor.add_particles()
+                    cursor.add_particles()
+                    cursor.add_particles()
+                    cursor.add_particles()
+                    cursor.add_particles()
+                    cursor.add_particles()
+                    map_tile[(map_pos.index(cursor.rect.topleft))] = 3
+
+                # if (cursor.rect.centerx
+                #     cursor.rect.move_ip(-x_offset, -y_offset)
+
+
+                # if event.type == JOYHATMOTION:
+                #     if joysticks[0].get_hat(0) == (-1,0): #left
+                #         cursor.rect.move_ip(-x_offset, -y_offset)
+                #     if joysticks[0].get_hat(0) == (1,0): #right
+                #         cursor.rect.move_ip(x_offset, y_offset)
+                #     if joysticks[0].get_hat(0) == (0,1): #down
+                #         cursor.rect.move_ip(-x_offset, y_offset)
+                #     if joysticks[0].get_hat(0) == (0,-1): #up
+                #         cursor.rect.move_ip(x_offset, -y_offset)
+                # if event.type == pygame.MOUSEMOTION:
+                #     mouse_position = pygame.mouse.get_pos()
+                #     cursor.rect.move(mouse_position[0], mouse_position[1])
+
 from pygame.locals import *
 pygame.init()
 pygame.display.set_caption('Farm for Your Life!')
@@ -112,79 +188,10 @@ while True:
     bgm.play()
 
     # actually print the map
-    tile_count = (len(map_tile) - 80)
-    while tile_count < 80:
-        if int(map_tile[tile_count]) == 1:
-            display.blit(grss_img, map_pos[tile_count])
-        if int(map_tile[tile_count]) == 2:
-            display.blit(dirt_img, map_pos[tile_count])
-        if int(map_tile[tile_count]) == 3:
-            display.blit(seed_img, map_pos[tile_count])
-        tile_count += 1
+    print_map()
 
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            pygame.quit()
-            sys.exit()
-        if event.type == KEYDOWN:
-            if event.key == K_ESCAPE: 
-                pygame.quit()
-                sys.exit()
-            if event.key == K_LEFT or event.key == K_s:
-                if (cursor.rect.left -x_offset, cursor.rect.top -y_offset) not in map_pos:
-                    pass
-                else:
-                    cursor.rect.move_ip(-x_offset, -y_offset)
-            if event.key == K_RIGHT or event.key == K_f:
-                if (cursor.rect.left + x_offset, cursor.rect.top + y_offset) not in map_pos:
-                    pass
-                else:
-                    cursor.rect.move_ip(x_offset, y_offset)
-            if event.key == K_DOWN or event.key == K_d:
-                if (cursor.rect.left -x_offset, cursor.rect.top + y_offset) not in map_pos:
-                    pass
-                else:
-                    cursor.rect.move_ip(-x_offset, y_offset)
-            if event.key == K_UP or event.key == K_e:
-                if (cursor.rect.left + x_offset, cursor.rect.top -y_offset) not in map_pos:
-                    pass
-                else:
-                    cursor.rect.move_ip(x_offset, -y_offset)
-            if event.key == K_SPACE:
-                # update map_data here
-                if map_tile[(map_pos.index(cursor.rect.topleft))] == 1:
-                    cursor.add_particles()
-                    cursor.add_particles()
-                    cursor.add_particles()
-                    cursor.add_particles()
-                    cursor.add_particles()
-                    cursor.add_particles()
-                    map_tile[(map_pos.index(cursor.rect.topleft))] = 3
-                if map_tile[(map_pos.index(cursor.rect.topleft))] == 2:
-                    cursor.add_particles()
-                    cursor.add_particles()
-                    cursor.add_particles()
-                    cursor.add_particles()
-                    cursor.add_particles()
-                    cursor.add_particles()
-                    map_tile[(map_pos.index(cursor.rect.topleft))] = 3
-
-        # if (cursor.rect.centerx
-        #     cursor.rect.move_ip(-x_offset, -y_offset)
-
-
-        # if event.type == JOYHATMOTION:
-        #     if joysticks[0].get_hat(0) == (-1,0): #left
-        #         cursor.rect.move_ip(-x_offset, -y_offset)
-        #     if joysticks[0].get_hat(0) == (1,0): #right
-        #         cursor.rect.move_ip(x_offset, y_offset)
-        #     if joysticks[0].get_hat(0) == (0,1): #down
-        #         cursor.rect.move_ip(-x_offset, y_offset)
-        #     if joysticks[0].get_hat(0) == (0,-1): #up
-        #         cursor.rect.move_ip(x_offset, -y_offset)
-        # if event.type == pygame.MOUSEMOTION:
-        #     mouse_position = pygame.mouse.get_pos()
-        #     cursor.rect.move(mouse_position[0], mouse_position[1])
+    #event loop
+    check_inputs()
 
     display.blit(cursor.surf, cursor.rect)
     cursor.emit()
