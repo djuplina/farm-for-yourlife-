@@ -12,7 +12,7 @@ from pygame.locals import (RLEACCEL, K_UP, K_e, K_DOWN, K_s, K_LEFT, K_f, K_RIGH
 #local imports
 import random_map
 
-# classes
+# classes and objects
 
 class Cursor(pygame.sprite.Sprite):
     def __init__(self):
