@@ -201,10 +201,5 @@ while True:
     check_inputs()
 
     display_out()
-    # display.blit(cursor.surf, cursor.rect)
-    # cursor.emit()
-    # screen.blit(pygame.transform.scale(display, screen.get_size()), (0, 0))
-    # pygame.display.update()
-    # clock.tick(40)
 
 pygame.joystick.quit()
