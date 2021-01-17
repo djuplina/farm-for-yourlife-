@@ -137,6 +137,13 @@ def check_inputs():
                 #     mouse_position = pygame.mouse.get_pos()
                 #     cursor.rect.move(mouse_position[0], mouse_position[1])
 
+def display_out():
+    display.blit(cursor.surf, cursor.rect)
+    cursor.emit()
+    screen.blit(pygame.transform.scale(display, screen.get_size()), (0, 0))
+    pygame.display.update()
+    clock.tick(40)
+
 from pygame.locals import *
 pygame.init()
 pygame.display.set_caption('Farm for Your Life!')
@@ -193,11 +200,11 @@ while True:
     #event loop
     check_inputs()
 
-    display.blit(cursor.surf, cursor.rect)
-    cursor.emit()
-
-    screen.blit(pygame.transform.scale(display, screen.get_size()), (0, 0))
-    pygame.display.update()
-    clock.tick(40)
+    display_out()
+    # display.blit(cursor.surf, cursor.rect)
+    # cursor.emit()
+    # screen.blit(pygame.transform.scale(display, screen.get_size()), (0, 0))
+    # pygame.display.update()
+    # clock.tick(40)
 
 pygame.joystick.quit()
