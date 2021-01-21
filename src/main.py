@@ -168,6 +168,9 @@ pygame.display.set_icon(icon)
 grss_img = pygame.image.load(os.path.join(f"{grass_path}", "grass.png")).convert_alpha()
 dirt_img = pygame.image.load(os.path.join(f"{dirt_path}", "dirt.png")).convert_alpha()
 seed_img = pygame.image.load(os.path.join(f"{seed_path}", "seed.png")).convert_alpha()
+grss_img = pygame.transform.scale(grss_img, (32, 40))
+seed_img = pygame.transform.scale(seed_img, (32, 40))
+dirt_img = pygame.transform.scale(dirt_img, (32, 40))
 bgm = pygame.mixer.Sound(os.path.join(f"{bgm_path}", 'evening.wav'))
 
 # set up the  map
