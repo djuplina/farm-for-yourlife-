@@ -7,7 +7,7 @@ import random
 import math
 import os
 from pygame import mixer
-from pygame.locals import (RLEACCEL, K_UP, K_e, K_DOWN, K_s, K_LEFT, K_f, K_RIGHT, K_d, K_ESCAPE, K_SPACE, KEYDOWN, QUIT, K_w, K_r,)
+from pygame.locals import (RLEACCEL, K_UP, K_e, K_DOWN, K_s, K_LEFT, K_f, K_RIGHT, K_d, K_ESCAPE, K_SPACE, KEYDOWN, QUIT, K_PAGEDOWN, K_PAGEUP, K_w, K_r,)
 
 #local imports
 import random_map
@@ -114,12 +114,12 @@ def check_inputs():
                     pass
                 else:
                     cursor.rect.move_ip(x_offset, -y_offset)
-            if event.key == K_r:
+            if event.key == K_r or event.key == K_PAGEDOWN:
                 if (invCursor.rect.topleft == (164, 10)):
                     invCursor.rect.move_ip(-62, 0)
                 else:
                     invCursor.rect.move_ip(31, 0)
-            if event.key == K_w:
+            if event.key == K_w  or event.key == K_PAGEUP:
                 if (invCursor.rect.topleft == (102, 10)):
                     invCursor.rect.move_ip(62, 0)
                 else:
