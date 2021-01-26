@@ -7,7 +7,7 @@ import random
 import math
 import os
 from pygame import mixer
-from pygame.locals import (RLEACCEL, K_UP, K_e, K_DOWN, K_s, K_LEFT, K_f, K_RIGHT, K_d, K_ESCAPE, K_SPACE, KEYDOWN, QUIT,)
+from pygame.locals import (RLEACCEL, K_UP, K_e, K_DOWN, K_s, K_LEFT, K_f, K_RIGHT, K_d, K_ESCAPE, K_SPACE, KEYDOWN, QUIT, K_w, K_r,)
 
 #local imports
 import random_map
@@ -72,6 +72,19 @@ def print_map():
             display.blit(seed_img, map_pos[tile_count])
         tile_count += 1
 
+class invCursor(pygame.sprite.Sprite):
+    def __init__(self):
+        cursorimage = pygame.image.load(os.path.join(f"{assets_path}", "inv", "inv-cursor.png"))
+        super(invCursor, self).__init__()
+        self.surf = cursorimage.convert()
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
+        self.rect = self.surf.get_rect(topleft=(102, 10))
+
+def inventory():
+    display.blit(inv0, [102, 10])
+    display.blit(inv1, [133, 10])
+    display.blit(inv2, [164, 10])
+
 def check_inputs():
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -101,6 +114,16 @@ def check_inputs():
                     pass
                 else:
                     cursor.rect.move_ip(x_offset, -y_offset)
+            if event.key == K_r:
+                if (invCursor.rect.topleft == (164, 10)):
+                    invCursor.rect.move_ip(-62, 0)
+                else:
+                    invCursor.rect.move_ip(31, 0)
+            if event.key == K_w:
+                if (invCursor.rect.topleft == (102, 10)):
+                    invCursor.rect.move_ip(62, 0)
+                else:
+                    invCursor.rect.move_ip(-31, 0)
             if event.key == K_SPACE:
                 # update map_data here
                 if map_tile[(map_pos.index(cursor.rect.topleft))] == 1:
@@ -139,6 +162,7 @@ def check_inputs():
 
 def display_out():
     display.blit(cursor.surf, cursor.rect)
+    display.blit(invCursor.surf, invCursor.rect)
     cursor.emit()
     screen.blit(pygame.transform.scale(display, screen.get_size()), (0, 0))
     pygame.display.update()
@@ -161,8 +185,12 @@ dirt_path = os.path.join(assets_path, 'background', 'dirt')
 seed_path = os.path.join(assets_path, 'background', 'seed')
 bgm_path = os.path.join(assets_path, 'audio', 'bgm')
 icon = pygame.image.load(os.path.join(f"{assets_path}", "icon.png"))
-inv = pygame.image.load(os.path.join(f"{assets_path}", "inv.png")).convert()
-inv.get_rect(center = (48, 16))
+inv0 = pygame.image.load(os.path.join(f"{assets_path}", "inv", "inv_0.png")).convert()
+inv0.get_rect()
+inv1 = pygame.image.load(os.path.join(f"{assets_path}", "inv", "inv_1.png")).convert()
+inv1.get_rect()
+inv2 = pygame.image.load(os.path.join(f"{assets_path}", "inv", "inv_2.png")).convert()
+inv2.get_rect()
 pygame.display.set_icon(icon)
 
 grss_img = pygame.image.load(os.path.join(f"{grass_path}", "grass.png")).convert_alpha()
@@ -181,6 +209,7 @@ map_pos = map_returns[1]
 tile_count = (len(map_tile) - 80)
 
 cursor = Cursor()
+invCursor = invCursor()
 
 for i in range(pygame.joystick.get_count()):
     joysticks.append(pygame.joystick.Joystick(i))
@@ -190,7 +219,7 @@ while True:
     display.fill((0,0,0))
 
     # inventory
-    display.blit(inv, [102, 10])
+    inventory()
     
     # play bgm during the loop
     bgm.play()
