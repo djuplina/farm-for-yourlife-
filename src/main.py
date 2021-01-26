@@ -16,7 +16,7 @@ import random_map
 
 class Cursor(pygame.sprite.Sprite):
     def __init__(self):
-        cursorimage = pygame.image.load(os.path.join(f"{assets_path}", "cursor.png"))
+        cursorimage = pygame.image.load(os.path.join(f"{assets_path}", "cursor", "cursor_0.png"))
         super(Cursor, self).__init__()
         self.surf = cursorimage.convert()
         self.surf.set_colorkey((255, 255, 255), RLEACCEL)
