@@ -69,7 +69,7 @@ def print_map():
         if int(map_tile[tile_count]) == 2:
             display.blit(dirt_img, map_pos[tile_count])
         if int(map_tile[tile_count]) == 3:
-            display.blit(seed_img, map_pos[tile_count])
+            display.blit(till_img, map_pos[tile_count])
         tile_count += 1
 
 class invCursor(pygame.sprite.Sprite):
@@ -178,12 +178,16 @@ pygame.mixer.pre_init(frequency = 44100, size = -16, channels = 1, buffer = 512)
 x_offset = 16
 y_offset = 8
 joysticks = []
+
+#Set Paths
 curr_path = os.path.dirname(__file__)
 assets_path = os.path.join(curr_path, 'assets')
 grass_path = os.path.join(assets_path, 'background', 'grass')
 dirt_path = os.path.join(assets_path, 'background', 'dirt')
-seed_path = os.path.join(assets_path, 'background', 'seed')
+till_path = os.path.join(assets_path, 'background', 'till')
 bgm_path = os.path.join(assets_path, 'audio', 'bgm')
+
+#Load Assets
 icon = pygame.image.load(os.path.join(f"{assets_path}", "icon.png"))
 inv0 = pygame.image.load(os.path.join(f"{assets_path}", "inv", "inv_0.png")).convert()
 inv0.get_rect()
@@ -192,12 +196,11 @@ inv1.get_rect()
 inv2 = pygame.image.load(os.path.join(f"{assets_path}", "inv", "inv_2.png")).convert()
 inv2.get_rect()
 pygame.display.set_icon(icon)
-
 grss_img = pygame.image.load(os.path.join(f"{grass_path}", "grass.png")).convert_alpha()
 dirt_img = pygame.image.load(os.path.join(f"{dirt_path}", "dirt.png")).convert_alpha()
-seed_img = pygame.image.load(os.path.join(f"{seed_path}", "seed.png")).convert_alpha()
+till_img = pygame.image.load(os.path.join(f"{till_path}", "till.png")).convert_alpha()
 grss_img = pygame.transform.scale(grss_img, (32, 40))
-seed_img = pygame.transform.scale(seed_img, (32, 40))
+till_img = pygame.transform.scale(till_img, (32, 40))
 dirt_img = pygame.transform.scale(dirt_img, (32, 40))
 bgm = pygame.mixer.Sound(os.path.join(f"{bgm_path}", 'evening.wav'))
 
